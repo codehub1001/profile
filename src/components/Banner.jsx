@@ -57,7 +57,7 @@ function Banner() {
         <img
           src="/img/deve.png"
           alt="AI Web Developer"
-          className="w-[15rem] sm:w-[18rem] md:w-[23rem]  rounded-full animate-subtle-bounce"
+          className="w-[15rem] sm:w-[18rem] md:w-[23rem]  rounded-full bounce-slow "
         />
       </div>
     </section>
