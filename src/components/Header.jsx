@@ -12,13 +12,12 @@ const Header = () => {
     { name: 'About me', href: '#about', id: 'about' },
     { name: 'Services', href: '#services', id: 'services' },
     { name: 'Portfolio', href: '#portfolio', id: 'portfolio' },
-    { name: 'Contact me', href: '#contact', id: 'contact', icon: <FaPhoneAlt className="text-sm" />, special: true },
+    { name: 'Contact', href: '#contact', id: 'contact', icon: true, special: true },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollPos = window.scrollY + 150;
-
       for (let item of menuItems) {
         const section = document.getElementById(item.id);
         if (
@@ -31,74 +30,88 @@ const Header = () => {
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const getLinkClasses = (id, special = false) => {
     if (special) {
-      return `rounded-2xl px-4 py-2 flex items-center gap-2 text-white transition ${
+      return `group flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 text-white ${
         activeSection === id ? 'bg-red-600' : 'bg-red-500 hover:bg-red-600'
       }`;
     }
-    return `hover:text-blue-600 transition ${
-      activeSection === id ? 'text-blue-500 font-semibold' : 'text-gray-300'
+    return `transition-all duration-300 ${
+      activeSection === id
+        ? 'text-blue-500 font-semibold underline underline-offset-4'
+        : 'text-gray-300 hover:text-blue-500'
     }`;
   };
 
   return (
-    <header className="fixed w-full h-[4rem] bg-gradient-to-r from-slate-900 to-black shadow z-50">
-      <div className="flex justify-between items-center px-6 py-4">
-        {/* Logo */}
-        <div className="logo">
-          <img src="../img/logo.png" alt="logo" className="h-[3.5rem]" />
-        </div>
+    <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-slate-900 to-black/70 backdrop-blur shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <img src="../img/logo.png" alt="Logo" className="h-10" />
+          </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:block">
-          <ul className="flex gap-6 capitalize font-medium">
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex space-x-6 items-center font-medium">
             {menuItems.map((item, idx) => (
-              <li key={idx}>
-                <a
-                  href={item.href}
-                  className={getLinkClasses(item.id, item.special)}
-                >
-                  {item.name}
-                  {item.icon && item.icon}
-                </a>
-              </li>
+              <a
+                key={idx}
+                href={item.href}
+                className={getLinkClasses(item.id, item.special)}
+              >
+                {item.icon && (
+                  <span className="text-lg  transition-all duration-300">
+                    <FaPhoneAlt className='bounce-slow' />
+                  </span>
+                )}
+                {item.name}
+              </a>
             ))}
-          </ul>
-        </nav>
+          </nav>
 
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-2xl text-gray-400">
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+              className="text-2xl text-gray-300"
+            >
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMenuOpen && (
-        <nav className="md:hidden px-6 pb-4">
-          <ul className="flex flex-col gap-4 font-medium">
-            {menuItems.map((item, idx) => (
-              <li key={idx}>
-                <a
-                  href={item.href}
-                  onClick={toggleMenu}
-                  className={getLinkClasses(item.id, item.special)}
-                >
-                  {item.name}
-                  {item.icon && item.icon}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      {/* Mobile Nav Menu */}
+      <div
+        className={`md:hidden transition-all duration-300 overflow-hidden ${
+          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        } bg-black px-6 py-4`}
+      >
+        <ul className="space-y-4">
+          {menuItems.map((item, idx) => (
+            <li key={idx}>
+              <a
+                href={item.href}
+                onClick={toggleMenu}
+                className={getLinkClasses(item.id, item.special)}
+              >
+                {item.icon && (
+                  <span className="text-lg group-hover:bounce-slow transition-all duration-300">
+                    <FaPhoneAlt />
+                  </span>
+                )}
+                {item.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </header>
   );
 };
