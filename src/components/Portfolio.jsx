@@ -58,7 +58,7 @@ const Portfolio = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + itemsPerSlide) % projects.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
     }, 6000); // auto-slide every 6 seconds
 
     return () => clearInterval(interval);
