@@ -13,7 +13,7 @@ const projects = [
   {
     title: 'E-Commerce Store',
     description: 'An online store with cart, checkout, and admin dashboard functionality.',
-    tech: ['React', 'Redux', 'Node.js', 'postgres DB'],
+    tech: ['React', 'Redux', 'Node.js', 'PostgreSQL'],
     github: 'https://github.com/yourusername/ecommerce-store',
     demo: 'https://ecommerce-ebon-ten-93.vercel.app/',
     image: '/img/ecom.png',
@@ -58,28 +58,33 @@ const Portfolio = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
-    }, 6000); // auto-slide every 6 seconds
+      setCurrentIndex((prevIndex) =>
+        (prevIndex + itemsPerSlide) % projects.length
+      );
+    }, 7000); // Auto-slide every 7 seconds
 
     return () => clearInterval(interval);
   }, []);
 
   const getVisibleProjects = () => {
-    return projects.slice(currentIndex, currentIndex + itemsPerSlide).concat(
-      projects.slice(0, Math.max(0, currentIndex + itemsPerSlide - projects.length))
-    );
+    const projectsToShow = [];
+    for (let i = 0; i < itemsPerSlide; i++) {
+      const index = (currentIndex + i) % projects.length;
+      projectsToShow.push(projects[index]);
+    }
+    return projectsToShow;
   };
 
   return (
-    <section id="portfolio" className=" bg-gradient-to-r from-slate-900 to-black text-white py-16 px-6">
+    <section id="portfolio" className="bg-gradient-to-r from-slate-900 to-black text-white py-20 px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-12 text-blue-400">Portfolio</h2>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 transition-all duration-500 ease-in-out">
           {getVisibleProjects().map((project, index) => (
             <div
               key={index}
-              className="bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+              className="bg-white/5 backdrop-blur border border-white/10 rounded-xl overflow-hidden shadow-lg hover:shadow-blue-500/30 transform hover:scale-[1.03] transition-all duration-300"
             >
               <img
                 src={project.image}
@@ -88,23 +93,23 @@ const Portfolio = () => {
               />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-gray-300 mb-3">{project.description}</p>
+                <p className="text-gray-300 mb-3 text-sm">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-sm bg-gray-700 text-gray-200 px-2 py-1 rounded"
+                      className="text-xs bg-gray-700 text-gray-200 px-2 py-1 rounded-full"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-4 text-lg">
+                <div className="flex gap-4 text-xl">
                   <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-blue-500"
+                    className="hover:text-blue-400 transition-colors"
                   >
                     <FaGithub />
                   </a>
@@ -112,7 +117,7 @@ const Portfolio = () => {
                     href={project.demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-green-400"
+                    className="hover:text-green-400 transition-colors"
                   >
                     <FaExternalLinkAlt />
                   </a>
@@ -122,21 +127,19 @@ const Portfolio = () => {
           ))}
         </div>
 
-        {/* Dots (optional) */}
-        <div className="flex justify-center mt-8 space-x-2">
-          {Array.from({ length: Math.ceil(projects.length / itemsPerSlide) }).map(
-            (_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx * itemsPerSlide)}
-                className={`h-3 w-3 rounded-full ${
-                  currentIndex / itemsPerSlide === idx
-                    ? 'bg-blue-500'
-                    : 'bg-gray-500'
-                }`}
-              ></button>
-            )
-          )}
+        {/* Navigation Dots */}
+        <div className="flex justify-center mt-10 space-x-3">
+          {Array.from({ length: Math.ceil(projects.length / itemsPerSlide) }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex((idx * itemsPerSlide) % projects.length)}
+              className={`h-3 w-3 rounded-full transition-all ${
+                Math.floor(currentIndex / itemsPerSlide) === idx
+                  ? 'bg-blue-500 scale-110'
+                  : 'bg-gray-500 hover:bg-blue-400'
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
