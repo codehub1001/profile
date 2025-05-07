@@ -94,7 +94,7 @@ const Contact = () => {
               <FaGithub />
             </a>
             <a
-              href="https://linkedin.com/in/yourusername"
+              href="https://ng.linkedin.com/in/chukwuka-erondu-4344232bb "
               target="_blank"
               rel="noopener noreferrer"
               className="text-2xl hover:text-blue-500 transform hover:scale-125 transition duration-300"
@@ -103,7 +103,7 @@ const Contact = () => {
               <FaLinkedin />
             </a>
             <a
-              href="https://twitter.com/yourusername"
+              href="https://x.com/ChukwukaErondu"
               target="_blank"
               rel="noopener noreferrer"
               className="text-2xl hover:text-sky-400 transform hover:scale-125 transition duration-300"
@@ -112,7 +112,7 @@ const Contact = () => {
               <FaTwitter />
             </a>
             <a
-              href="mailto:your@email.com"
+              href="mailto:oluwachukkie@gmail.com"
               className="text-2xl hover:text-red-400 transform hover:scale-125 transition duration-300"
               aria-label="Email"
             >

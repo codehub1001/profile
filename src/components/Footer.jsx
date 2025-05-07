@@ -19,16 +19,16 @@ const Footer = () => {
 
         {/* Social Icons */}
         <div className="flex gap-5 text-xl">
-          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
+          <a href="https://github.com/codehub1001" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
             <FaGithub />
           </a>
-          <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
+          <a href="https://ng.linkedin.com/in/chukwuka-erondu-4344232bb " target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
             <FaLinkedin />
           </a>
           <a href="https://wa.me/+8112780944" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
             <FaWhatsapp />
           </a>
-          <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
+          <a href="https://x.com/ChukwukaErondu" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
             <FaTwitter />
           </a>
           <a href="mailto:oluwachukkie@gmail.com" className="hover:text-blue-400 transition">
